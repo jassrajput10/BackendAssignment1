@@ -1,4 +1,5 @@
 import { calculatePortfolioPerformance } from "../src/portfolio/portfolioPerformance";
+import { findLargestHolding, Asset } from '../src/portfolio/portfolioPerformance';
 
 describe('calculatePortfolioPerformance', () => {
     it('should calculate profit when the case is profit', () => {
@@ -34,3 +35,36 @@ describe('calculatePortfolioPerformance', () => {
         expect(result.performanceSummary).toBe('The portfolio has lost significantly with the loss of $-5000.00.');
     });    
 });
+
+describe("findlargestHolding", () => {
+    it('should find largest regular asset', () => {
+        const assets: Asset[] = [
+            { name: 'House', value: 2000 },
+            { name: 'Stocks', value: 1000 },
+            { name: 'Bonds', value: 500 },
+
+        ];
+        const largest = findLargestHolding(assets);
+        expect(largest).toEqual({ name: 'House', value: 2000});
+    });
+});
+
+describe("findlargestHolding", () => {
+    it('should find largest regular asset', () => {
+        const assets: Asset[] = [
+            { name: 'House', value: 2000 },
+            { name: 'Stocks', value: 1000 },
+            { name: 'Bonds', value: 500 },
+
+        ];
+        const largest = findLargestHolding(assets);
+        expect(largest).toEqual({ name: 'House', value: 2000});
+    });
+    it('returns empty array', () => {
+        const assets: Asset[] = [];
+        
+        const empty = findLargestHolding(assets);
+        expect(empty).toBeNull();
+    });
+});
+
