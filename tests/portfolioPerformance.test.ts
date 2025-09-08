@@ -1,5 +1,6 @@
 import { calculatePortfolioPerformance } from "../src/portfolio/portfolioPerformance";
 import { findLargestHolding, Asset } from '../src/portfolio/portfolioPerformance';
+import { assetAllocationPercentage } from '../src/portfolio/portfolioPerformance';
 
 describe('calculatePortfolioPerformance', () => {
     it('should calculate profit when the case is profit', () => {
@@ -67,4 +68,31 @@ describe("findlargestHolding", () => {
         expect(empty).toBeNull();
     });
 });
+
+describe("assetAllocationPercentage", () => {
+    it('even distribution', () => {
+        const asset: Asset[] = [
+            { name: "stocks", value: 5000 },
+            { name: "bonds", value: 5000 },
+        ];
+        const distribution = assetAllocationPercentage(asset);
+        expect(distribution).toEqual([
+            { name: "stocks", value: 5000, percentage: 50 },
+            { name: "bonds", value: 5000, percentage: 50 },
+        ]);
+    });
+    it('uneven distribution', () => {
+        const asset: Asset[] = [
+            { name: "stocks", value: 7500 },
+            { name: "bonds", value: 2500 },
+        ];
+        const distribution = assetAllocationPercentage(asset);
+        expect(distribution).toEqual([
+            { name: "stocks", value: 7500, percentage: 75 },
+            { name: "bonds", value: 2500, percentage: 25 },
+        ]);
+    });
+});
+
+
 
