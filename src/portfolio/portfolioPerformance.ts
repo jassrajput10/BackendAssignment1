@@ -51,3 +51,19 @@ export function calculatePortfolioPerformance(
         performanceSummary: performanceSummary(percentageChange), // this will call the function here
     };
 }
+
+// interface for asset
+export interface Asset {
+    name: string;
+    value: number;
+}
+
+/** findlargestholding function will take array as an object
+either an asset or null.
+*/
+export function findLargestHolding(assets: Asset[]): Asset | null {
+    return assets.length === 0 ? null :
+    assets.reduce((largest, current) => 
+    current.value > largest.value ? current : largest
+    );
+}
