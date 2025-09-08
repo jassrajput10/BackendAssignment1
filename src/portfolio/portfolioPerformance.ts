@@ -7,7 +7,7 @@ interface PortfolioPerformance {
     performanceSummary: string;
 }
 
-//
+
 export function calculatePortfolioPerformance(
     initialInvestment: number,
     currentValue: number
@@ -66,4 +66,22 @@ export function findLargestHolding(assets: Asset[]): Asset | null {
     assets.reduce((largest, current) => 
     current.value > largest.value ? current : largest
     );
+}
+
+// interface for asset allocation
+export interface AssetAllocation {
+    name: string;
+    value: number;
+    percentage: number;
+}
+
+export function assetAllocationPercentage(assets: Asset[]): AssetAllocation[] {
+    const totalValue = assets.reduce((sum, asset) => sum + asset.value, 0); // 
+
+    return totalValue === 0 ? [] : // if the totalvalue is zero it will return the empty array.
+     assets.map(asset => ({  // map will transfer each asset into new object
+        name: asset.name,
+        value: asset.value,
+        percentage: (asset.value / totalValue) * 100
+    }));
 }
